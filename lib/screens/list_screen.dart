@@ -38,6 +38,7 @@ class _ListProductScreenState extends State<ListProductScreen> {
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: MasonryGridView.count(
+                physics: const PageScrollPhysics(),
                 crossAxisCount: 2,
                 mainAxisSpacing: 16,
                 crossAxisSpacing: 16,

@@ -1,5 +1,7 @@
+// ignore: depend_on_referenced_packages
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:monas_cart/screens/widgets/index.dart';
 
 class DetailProductSreen extends StatefulWidget {
   final String productId;
@@ -11,6 +13,20 @@ class DetailProductSreen extends StatefulWidget {
 }
 
 class _DetailProductSreenState extends State<DetailProductSreen> {
+  int sAmount = 0;
+  int mAmount = 0;
+  int lAmount = 0;
+  int xlAmount = 0;
+  @override
+  void initState() {
+    // window.Telegram.WebApp
+    // if (kIsWeb) {
+    //   var telegram = js.JsObject.fromBrowserObject(js.context['Telegram']);
+    //   telegram['WebApp'].callMethod('close', []);
+    // }
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     var appHeight = MediaQuery.of(context).size.height;
@@ -86,7 +102,7 @@ class _DetailProductSreenState extends State<DetailProductSreen> {
                               ),
                               const SizedBox(height: 8),
                               const Text(
-                                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit, consectetur adipiscing elitconsectetur adipiscing elitconsectetur adipiscing elitconsectetur adipiscing elitconsectetur adipiscing elitconsectetur adipiscing elitconsectetur adipiscing elitconsectetur adipiscing elitconsectetur adipiscing elitconsectetur adipiscing elit. Sed ac egestas elit. Vestibulum blandit, arcu vel lacinia tincidunt, augue mauris suscipit sem, eget feugiat justo sapien ut magna. Morbi condimentum, nisi dignissim maximus efficitur, ex ex posuere ante, in tristique nunc felis id mauris. Phasellus mattis nisl eget venenatis commodo. Maecenas sollicitudin posuere velit, at aliquam sem placerat dictum. Curabitur ut auctor ante. Curabitur quis dolor pharetra, feugiat nunc tempor, dignissim quam. Maecenas rhoncus, orci at venenatis iaculis, lorem enim suscipit lorem, ut pellentesque ex velit quis tellus. In non ipsum sit amet tellus sodales ultricies et id mauris..'),
+                                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit, consectetur adipiscing elitconsectetur adipiscing elitconsectetur adipiscing elitconsectetur adipiscing elitconsectetur adipiscing elitconsectetur adipiscing elitconsectetur adipiscing elitconsectetur adipiscing elitconsectetur adipiscing elitconsectetur adipiscing elit.'),
                               const SizedBox(height: 8),
                               const Text(
                                 'Size',
@@ -95,79 +111,94 @@ class _DetailProductSreenState extends State<DetailProductSreen> {
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  const SizedBox(height: 8),
+                                  const SizedBox(height: 16),
                                   Row(
                                     children: [
-                                      const CircleAvatar(
-                                        backgroundColor: Colors.black12,
-                                        foregroundColor: Colors.black,
-                                        child: Text('S'),
+                                      SizedBox(
+                                        width: 16,
+                                        child: Text(
+                                          'S',
+                                          style: TextStyle(
+                                              color: sAmount == 0
+                                                  ? Colors.black45
+                                                  : Colors.blue[900],
+                                              fontSize: 24,
+                                              fontWeight: FontWeight.bold),
+                                        ),
                                       ),
                                       const SizedBox(width: 16),
-                                      IconButton(
-                                          onPressed: () {},
-                                          icon: const Icon(Icons.remove)),
-                                      SizedBox(
-                                          width: 50,
-                                          child: TextField(
-                                            textAlign: TextAlign.center,
-                                            // decoration: inputNumberBorder(),
-                                            style: const TextStyle(
-                                                fontSize: 24,
-                                                fontWeight: FontWeight.bold),
-                                          )),
-                                      IconButton(
-                                        highlightColor: Colors.black12,
-                                        onPressed: () {},
-                                        icon: const Icon(Icons.add),
+                                      NumberCounter(
+                                        onChanged: (number) {
+                                          setState(() {
+                                            sAmount = number;
+                                          });
+                                        },
                                       ),
                                     ],
                                   ),
-                                  const SizedBox(height: 8),
+                                  const SizedBox(height: 16),
                                   Row(
                                     children: [
-                                      const CircleAvatar(
-                                        backgroundColor: Colors.black12,
-                                        foregroundColor: Colors.black,
-                                        child: Text('M'),
+                                      SizedBox(
+                                        width: 16,
+                                        child: Text(
+                                          'M',
+                                          style: TextStyle(
+                                              color: mAmount == 0
+                                                  ? Colors.black45
+                                                  : Colors.blue[900],
+                                              fontSize: 24,
+                                              fontWeight: FontWeight.bold),
+                                        ),
                                       ),
                                       const SizedBox(width: 16),
-                                      IconButton(
-                                          onPressed: () {},
-                                          icon: const Icon(Icons.remove)),
-                                      SizedBox(
-                                          width: 50,
-                                          child: TextField(
-                                            textAlign: TextAlign.center,
-                                            // decoration: inputNumberBorder(),
-                                            style: const TextStyle(
-                                                fontSize: 24,
-                                                fontWeight: FontWeight.bold),
-                                          )),
-                                      OutlinedButton.icon(
-                                        onPressed: () {},
-                                        icon: const Icon(Icons.add),
-                                        label: Text(''),
+                                      NumberCounter(
+                                        onChanged: (number) {
+                                          setState(() {
+                                            mAmount = number;
+                                          });
+                                        },
                                       ),
                                     ],
                                   ),
-                                  const SizedBox(height: 8),
-                                  const CircleAvatar(
-                                    child: Text('L'),
-                                    backgroundColor: Colors.black12,
-                                    foregroundColor: Colors.black,
+                                  const SizedBox(height: 16),
+                                  Row(
+                                    children: [
+                                      SizedBox(
+                                        width: 16,
+                                        child: Text(
+                                          'L',
+                                          style: TextStyle(
+                                              color: lAmount == 0
+                                                  ? Colors.black45
+                                                  : Colors.blue[900],
+                                              fontSize: 24,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ),
+                                      const SizedBox(width: 16),
+                                      NumberCounter(
+                                        onChanged: (number) {
+                                          setState(() {
+                                            lAmount = number;
+                                          });
+                                        },
+                                      ),
+                                    ],
                                   ),
+                                  const SizedBox(height: 16),
+                                  if ((sAmount + mAmount + lAmount) <= 5)
+                                    const Text(
+                                      '*Lưu ý: vui lòng đặt từ 5 sản phẩm',
+                                      style: TextStyle(color: Colors.black),
+                                    )
                                 ],
                               ),
                             ],
                           ),
                         ),
                       ),
-                      SizedBox(
-                        width: appwidth,
-                        child: ElevatedButton(
-                            onPressed: () {}, child: const Text('Add to cart')),
-                      )
+                      const SizedBox(height: 32),
                     ],
                   ),
                 ),
