@@ -1,3 +1,6 @@
+import 'dart:js' as js;
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class NumberCounter extends StatefulWidget {
@@ -11,6 +14,23 @@ class NumberCounter extends StatefulWidget {
 class _NumberCounterState extends State<NumberCounter> {
   int number = 0;
   bool tenPlus = false;
+  late js.JsObject telegramjs;
+  @override
+  void initState() {
+    super.initState();
+    // window.Telegram.WebApp
+    if (kIsWeb) {
+      var telegram = js.JsObject.fromBrowserObject(js.context['Telegram']);
+      telegramjs = telegram['WebApp'];
+      telegramjs['BackButton'].callMethod('show', []);
+      telegramjs['BackButton'].callMethod('onClick', [
+        () {
+          Navigator.maybePop(context);
+        }
+      ]);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -23,6 +43,8 @@ class _NumberCounterState extends State<NumberCounter> {
             onPressed: number == 0
                 ? null
                 : (index) {
+                    telegramjs['HapticFeedback']
+                        .callMethod('selectionChanged', []);
                     setState(() {
                       number = number -
                           (index == 0 ? (number < 10 ? number : 10) : 1);
@@ -66,6 +88,7 @@ class _NumberCounterState extends State<NumberCounter> {
           ),
           ToggleButtons(
             onPressed: (index) {
+              telegramjs['HapticFeedback'].callMethod('selectionChanged', []);
               setState(() {
                 tenPlus = true;
                 number = number + (index == 0 ? 1 : 10);

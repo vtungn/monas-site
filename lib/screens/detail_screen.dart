@@ -1,5 +1,8 @@
 // ignore: depend_on_referenced_packages
+import 'dart:js' as js;
+
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:monas_cart/screens/widgets/index.dart';
 
@@ -17,14 +20,29 @@ class _DetailProductSreenState extends State<DetailProductSreen> {
   int mAmount = 0;
   int lAmount = 0;
   int xlAmount = 0;
+  late js.JsObject telegramjs;
   @override
   void initState() {
     // window.Telegram.WebApp
-    // if (kIsWeb) {
-    //   var telegram = js.JsObject.fromBrowserObject(js.context['Telegram']);
-    //   telegram['WebApp'].callMethod('close', []);
-    // }
+    if (kIsWeb) {
+      telegramjs = js.JsObject.fromBrowserObject(js.context['Telegram']);
+      telegramjs = telegramjs['WebApp'];
+      telegramjs['BackButton'].callMethod('hide', []);
+    }
     super.initState();
+  }
+
+  void shouldShowAddtoCart() {
+    if ((sAmount + mAmount + lAmount) < 5) {
+      telegramjs['MainButton'].callMethod('hide', []);
+    } else {
+      telegramjs['MainButton'].callMethod('show', []);
+      telegramjs['MainButton'].callMethod('onClick', [
+        () {
+          telegramjs.callMethod('close', []);
+        }
+      ]);
+    }
   }
 
   @override
@@ -132,6 +150,7 @@ class _DetailProductSreenState extends State<DetailProductSreen> {
                                           setState(() {
                                             sAmount = number;
                                           });
+                                          shouldShowAddtoCart();
                                         },
                                       ),
                                     ],
@@ -157,6 +176,7 @@ class _DetailProductSreenState extends State<DetailProductSreen> {
                                           setState(() {
                                             mAmount = number;
                                           });
+                                          shouldShowAddtoCart();
                                         },
                                       ),
                                     ],
@@ -182,6 +202,7 @@ class _DetailProductSreenState extends State<DetailProductSreen> {
                                           setState(() {
                                             lAmount = number;
                                           });
+                                          shouldShowAddtoCart();
                                         },
                                       ),
                                     ],
