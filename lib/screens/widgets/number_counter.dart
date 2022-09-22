@@ -25,6 +25,7 @@ class _NumberCounterState extends State<NumberCounter> {
       telegramjs['BackButton'].callMethod('show', []);
       telegramjs['BackButton'].callMethod('onClick', [
         () {
+          telegramjs['BackButton'].callMethod('hide', []);
           Navigator.maybePop(context);
         }
       ]);
